@@ -1,9 +1,3 @@
-// Lineup Rules
-// The total salary of all players in a lineup may not exceed $45,000
-// Lineups may not contain more than 2 players from a single team
-// Lineups may not contain more than 3 players from a single game
-// Lineups must contain exactly 3 players with the position of 'OF' and must also contain exactly 1 player from each of the following positions: 'P', 'C', '1B', '2B', '3B', 'SS'
-
 const testLineup = ['1B', '2B', '3B', 'C', 'OF', 'OF', 'OF', 'P', 'SS']
 
 // Check Player Team
@@ -11,7 +5,7 @@ function checkTeams(lineup) {
   let playerTeams = true
 
   for (let i = 0; i < lineup.length; i++) {
-    if (lineup.filter(player => player.teamID === lineup[i].teamID).length > 2) {
+    if (lineup.filter(player => player.teamId === lineup[i].teamId).length > 2) {
       playerTeams = false
     }
 
@@ -19,16 +13,26 @@ function checkTeams(lineup) {
   }
 }
 // Check # of Games
+function checkGames(lineup) {
+  let validGames = true
+
+  for (let i = 0; i < lineup.length; i++) {
+    if (lineup.filter(player => player.gameId === lineup[i].gameId).length > 3) {
+      validGames = false
+    }
+
+    return validGames
+  }
+}
 
 // Check Player Positions
-
 function playerPosition(lineup, testLineup) {
   let lineupPositions = true
   let positionsArr = lineup.map(position => position.position).sort()
 
   if (positionsArr.length !== testLineup.length) return false
 
-  positionsArr.forEach((position,index) => {
+  positionsArr.forEach((position, index) => {
     if (position !== testLineup[index]) {
       lineupPositions = false
     }
@@ -37,8 +41,7 @@ function playerPosition(lineup, testLineup) {
   return lineupPositions
 }
 
-// Check Team Salary
-
+// Check Team Salarys
 const checkSalary = (lineup) => {
   let totalSalary = 0
 
