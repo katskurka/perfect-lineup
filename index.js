@@ -12,7 +12,20 @@ const testLineup = ['1B', '2B', '3B', 'C', 'OF', 'OF', 'OF', 'P', 'SS']
 
 // Check Player Positions
 
-function playerPosition
+function playerPosition(lineup, testLineup) {
+  let lineupPositions = true
+  let positionsArr = lineup.map(position => position.position).sort()
+
+  if (positionsArr.length !== testLineup.length) return false
+
+  positionsArr.forEach((position,index) => {
+    if (position !== testLineup[index]) {
+      lineupPositions = false
+    }
+  })
+
+  return lineupPositions
+}
 
 // Check Team Salary
 
@@ -22,6 +35,10 @@ const checkSalary = (lineup) => {
   lineup.forEach(player => totalSalary += player.salary)
 
   return (totalSalary <= 45000) ? true : false
+}
+
+const validateLineup = (lineup) => {
+  return (checkSalary(lineup) && playerPosition(lineup, testLineup) && checkTeams(lineup) && checkGames(lineup))
 }
 
 module.exports = validateLineup
