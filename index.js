@@ -7,7 +7,17 @@
 const testLineup = ['1B', '2B', '3B', 'C', 'OF', 'OF', 'OF', 'P', 'SS']
 
 // Check Player Team
+function checkTeams(lineup) {
+  let playerTeams = true
 
+  for (let i = 0; i < lineup.length; i++) {
+    if (lineup.filter(player => player.teamID === lineup[i].teamID).length > 2) {
+      playerTeams = false
+    }
+
+    return playerTeams
+  }
+}
 // Check # of Games
 
 // Check Player Positions
